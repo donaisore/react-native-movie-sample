@@ -1,5 +1,15 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "assets": ["./assets/*"],
+      "src": ["./src"],
+      "types": ["./src/types"],
+      "components": ["./src/components"],
+      "screens": ["./src/screens"],
+      "contexts": ["./src/contexts"],
+      "navigation": ["./src/navigation"]
+    },
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
     "lib": ["dom", "esnext"],
