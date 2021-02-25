@@ -1,23 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
-import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
+import { UserContext } from 'src/contexts/userContext';
+import AppNavigator from 'src/navigation/AppNavigator';
+import { User } from 'src/types/user';
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
+  const [user, setUser] = useState<User | null>(null);
 
-  if (!isLoadingComplete) {
-    return null;
-  } else {
-    return (
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
       <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
+        <AppNavigator />
       </SafeAreaProvider>
-    );
-  }
+    </UserContext.Provider>
+  );
 }

@@ -3,17 +3,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
+import Colors from '../../constants/Colors';
+import useColorScheme from '../../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import MovieTabScreen from '../screens/MovieTabScreen';
 import {
   BottomTabParamList,
   TabOneParamList,
   TabTwoParamList,
-  MovieTabPramList,
-} from '../types';
+} from '../../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -43,7 +41,6 @@ export default function BottomTabNavigator() {
           ),
         }}
       />
-      <BottomTab.Screen name='MovieTab' component={MovieTabNavigator} />
     </BottomTab.Navigator>
   );
 }
@@ -87,12 +84,12 @@ function TabTwoNavigator() {
   );
 }
 
-const MovieTabStack = createStackNavigator<MovieTabPramList>();
+// const MovieTabStack = createStackNavigator<MovieTabPramList>();
 
-function MovieTabNavigator() {
-  return (
-    <MovieTabStack.Navigator>
-      <MovieTabStack.Screen name='MovieTabScreen' component={MovieTabScreen} />
-    </MovieTabStack.Navigator>
-  );
-}
+// function MovieTabNavigator() {
+//   return (
+//     <MovieTabStack.Navigator>
+//       <MovieTabStack.Screen name='MovieTabScreen' component={MovieTabScreen} />
+//     </MovieTabStack.Navigator>
+//   );
+// }
