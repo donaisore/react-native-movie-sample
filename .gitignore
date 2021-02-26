@@ -12,5 +12,5 @@ web-build/
 # macOS
 .DS_Store
 
-# Firebase SDK
-firebase.ts
+# Firebase SDK/firebase.ts
+src/config/firebase.ts
