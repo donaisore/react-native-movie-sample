@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigator from 'src/navigation/AuthNavigator';
-import MainScreen from 'src/screens/MainScreen';
+import MainScreen from 'src/screens/Main/MainScreen';
 import { UserContext } from 'src/contexts/userContext';
+import MainStackNavigator from './MainStackNavigator';
 
 const AppNavigator = () => {
   const { user } = useContext(UserContext);
@@ -12,7 +13,8 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer>
-      {!user ? <AuthNavigator /> : <MainScreen />}
+      <MainStackNavigator />
+      {/* {!user ? <AuthNavigator /> : <MainStackNavigator />} */}
     </NavigationContainer>
   );
 };
