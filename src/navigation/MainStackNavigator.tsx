@@ -10,7 +10,11 @@ const MainStack = createStackNavigator<MainStackParamList>();
 
 const MainStackNavigator = () => {
   return (
-    <MainStack.Navigator>
+    <MainStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <MainStack.Screen name='Main' component={MainScreen} />
       <MainStack.Screen name='VideoDetail' component={VideoDetail} />
     </MainStack.Navigator>

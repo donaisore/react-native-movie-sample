@@ -22,9 +22,6 @@ const SignInScreen = ({ navigation }: Props) => {
 
   const handlePress = async () => {
     const user = await signIn({ email, password });
-    console.log('SignInScreen SignInScreen SignInScreen');
-    console.log({ user });
-    console.log('SignInScreen SignInScreen SignInScreen');
     setUser(user);
   };
 

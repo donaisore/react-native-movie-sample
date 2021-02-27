@@ -7,9 +7,6 @@ import MainStackNavigator from './MainStackNavigator';
 
 const AppNavigator = () => {
   const { user } = useContext(UserContext);
-  console.log('AppNavigator AppNavigator AppNavigator');
-  console.log({ user });
-  console.log('AppNavigator AppNavigator AppNavigator');
 
   return (
     <NavigationContainer>

@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import React, { useRef, useState, useCallback } from 'react';
+import { Pressable, SafeAreaView, StyleSheet } from 'react-native';
 import { Video } from 'expo-av';
 /* types */
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -13,21 +13,33 @@ type Props = {
 
 const VideoDetail = ({ navigation, route }: Props) => {
   const video = useRef(null);
-  const [status, setStatus] = useState({});
+  const [isPlaying, setIsPlaying] = useState(true);
+  const handlePlay = () => {
+    video.current.playAsync();
+    setIsPlaying(true);
+  };
+  const handlePause = () => {
+    video.current.pauseAsync();
+    setIsPlaying(false);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Video
-        ref={video}
-        style={styles.video}
-        source={{
-          uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-        }}
-        useNativeControls
-        resizeMode='contain'
-        isLooping
-        onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-      />
+      <Pressable
+        style={styles.pressable}
+        onPress={isPlaying ? handlePause : handlePlay}
+      >
+        <Video
+          ref={video}
+          style={styles.video}
+          source={{
+            uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+          }}
+          resizeMode='contain'
+          shouldPlay
+          isLooping
+        />
+      </Pressable>
     </SafeAreaView>
   );
 };
@@ -35,11 +47,14 @@ const VideoDetail = ({ navigation, route }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'black',
+  },
+  pressable: {
+    flex: 1,
+    opacity: 1.0,
   },
   video: {
-    width: '100%',
-    height: 300,
-    // flex: 1,
+    flex: 1,
   },
 });
 
