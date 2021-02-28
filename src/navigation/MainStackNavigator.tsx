@@ -1,7 +1,5 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import SignInScreen from 'src/screens/Auth/SignInScreen';
-import SignUpScreen from 'src/screens/Auth/SignUpScreen';
 import { MainStackParamList } from 'src/types/navigation';
 import MainScreen from 'src/screens/Main/MainScreen';
 import VideoDetail from 'src/screens/Main/VideoDetail';

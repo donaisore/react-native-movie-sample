@@ -2,10 +2,8 @@ import React from 'react';
 import {
   TouchableOpacity,
   SafeAreaView,
-  Text,
   FlatList,
   StyleSheet,
-  View,
   Image,
 } from 'react-native';
 /* components */

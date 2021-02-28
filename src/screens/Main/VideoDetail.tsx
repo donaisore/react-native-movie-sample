@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState } from 'react';
 import { Pressable, SafeAreaView, StyleSheet } from 'react-native';
 import { Video } from 'expo-av';
 /* types */

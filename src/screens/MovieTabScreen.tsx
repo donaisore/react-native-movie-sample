@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
-import { Video, AVPlaybackStatus } from 'expo-av';
+import { Video } from 'expo-av';
 
 export default function MovieTabScreen() {
   const video = useRef(null);
