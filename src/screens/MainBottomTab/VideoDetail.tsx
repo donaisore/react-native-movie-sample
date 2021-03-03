@@ -4,11 +4,11 @@ import { Video } from 'expo-av';
 /* types */
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { MainStackParamList } from 'src/types/navigation';
+import { HomeStackParamList } from 'src/types/navigation';
 
 type Props = {
-  navigation: StackNavigationProp<MainStackParamList, 'VideoDetail'>;
-  route: RouteProp<MainStackParamList, 'VideoDetail'>;
+  navigation: StackNavigationProp<HomeStackParamList, 'VideoDetail'>;
+  route: RouteProp<HomeStackParamList, 'VideoDetail'>;
 };
 
 const VideoDetail = ({ navigation, route }: Props) => {

@@ -12,14 +12,14 @@ import VideoCard from 'src/components/VideoCard';
 /* types */
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { MainStackParamList } from 'src/types/navigation';
+import { HomeStackParamList } from 'src/types/navigation';
 
 type Props = {
-  navigation: StackNavigationProp<MainStackParamList, 'Main'>;
-  route: RouteProp<MainStackParamList, 'Main'>;
+  navigation: StackNavigationProp<HomeStackParamList, 'Main'>;
+  route: RouteProp<HomeStackParamList, 'Main'>;
 };
 
-const MainScreen = ({ navigation, route }: Props) => {
+const HomeScreen = ({ navigation, route }: Props) => {
   const movies = [
     { key: 'foo', component: VideoCard },
     { key: 'foo1', component: VideoCard },
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainScreen;
+export default HomeScreen;

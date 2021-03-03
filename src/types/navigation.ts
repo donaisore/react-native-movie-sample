@@ -3,7 +3,7 @@ export type AuthStackParamList = {
   SignUp: undefined;
 };
 
-export type MainStackParamList = {
+export type HomeStackParamList = {
   Main: undefined;
   VideoDetail: undefined;
 };
