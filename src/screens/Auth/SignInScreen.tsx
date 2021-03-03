@@ -1,11 +1,6 @@
 import React, { useState, useContext } from 'react';
-import {
-  SafeAreaView,
-  Button,
-  Text,
-  TextInput,
-  StyleSheet,
-} from 'react-native';
+import { SafeAreaView, Text, StyleSheet } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AuthStackParamList } from 'src/types/navigation';
 import { signIn } from 'src/api/firebase';
@@ -27,41 +22,30 @@ const SignInScreen = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView>
-      <Text>Signin Page</Text>
       <TextInput
+        label='email'
         value={email}
         onChangeText={(text) => setEmail(text)}
         autoCapitalize='none'
         autoCompleteType='email'
         keyboardType='email-address'
         textContentType='emailAddress'
-        style={styles.textInput}
       />
       <TextInput
+        label='password'
         value={password}
         onChangeText={(text) => setPassword(text)}
         autoCapitalize='none'
         autoCompleteType='password'
         secureTextEntry={true}
         textContentType='password'
-        style={styles.textInput}
       />
-      <Button title='ログイン' onPress={handlePress} />
-      <Button
-        title='Go to SingUp Page'
-        onPress={() => navigation.navigate('SignUp')}
-      />
+      <Button onPress={handlePress}>ログイン</Button>
+      <Button onPress={() => navigation.navigate('SignUp')}>新規登録</Button>
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  textInput: {
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderColor: 'black',
-    marginBottom: 20,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default SignInScreen;
