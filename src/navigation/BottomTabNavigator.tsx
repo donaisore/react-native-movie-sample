@@ -7,10 +7,12 @@ import Colors from '../../constants/Colors';
 import useColorScheme from '../../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
+import TabThreeScreen from '../screens/TabThreeScreen';
 import {
   BottomTabParamList,
   TabOneParamList,
   TabTwoParamList,
+  TabThreeParamList,
 } from '../../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -35,6 +37,15 @@ export default function BottomTabNavigator() {
       <BottomTab.Screen
         name='TabTwo'
         component={TabTwoNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name='ios-code' color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name='TabThree'
+        component={TabThreeNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name='ios-code' color={color} />
@@ -84,12 +95,16 @@ function TabTwoNavigator() {
   );
 }
 
-// const MovieTabStack = createStackNavigator<MovieTabPramList>();
+const TabThreeStack = createStackNavigator<TabThreeParamList>();
 
-// function MovieTabNavigator() {
-//   return (
-//     <MovieTabStack.Navigator>
-//       <MovieTabStack.Screen name='MovieTabScreen' component={MovieTabScreen} />
-//     </MovieTabStack.Navigator>
-//   );
-// }
+function TabThreeNavigator() {
+  return (
+    <TabThreeStack.Navigator>
+      <TabThreeStack.Screen
+        name='TabThreeScreen'
+        component={TabThreeScreen}
+        options={{ headerTitle: 'Tab Three Title' }}
+      />
+    </TabThreeStack.Navigator>
+  );
+}
