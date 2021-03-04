@@ -20,4 +20,5 @@ src/config/firebase.ts
 database-debug.log
 firebase.json
 firestore-debug.log
+firebase-debug.log
 ui-debug.log
