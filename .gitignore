@@ -14,3 +14,10 @@ web-build/
 
 # Firebase SDK/firebase.ts
 src/config/firebase.ts
+
+# firebase emulators
+.firebaserc
+database-debug.log
+firebase.json
+firestore-debug.log
+ui-debug.log
