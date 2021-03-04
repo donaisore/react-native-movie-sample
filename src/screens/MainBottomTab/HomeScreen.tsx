@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
   card: {
     width: '98%',
     height: '98%',
-    backgroundColor: 'red',
   },
 });
 
