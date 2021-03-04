@@ -13,18 +13,19 @@ type signUpProps = {
   password: string;
 };
 
+const auth = firebase.auth();
+
 export const signIn = async ({ email, password }: signInProps) => {
-  const userCredential = await firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password);
+  const userCredential = await auth.signInWithEmailAndPassword(email, password);
   const { user } = userCredential;
   return user ? ({ name: user.displayName, email: user.email } as User) : null;
 };
 
 export const signUp = async ({ email, password }: signUpProps) => {
-  const userCredential = await firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password);
+  const userCredential = await auth.createUserWithEmailAndPassword(
+    email,
+    password
+  );
   const { user } = userCredential;
   return user;
 };
@@ -60,7 +61,7 @@ export const signUp = async ({ email, password }: signUpProps) => {
 
 export async function loggingOut() {
   try {
-    await firebase.auth().signOut();
+    await auth.signOut();
   } catch (err) {
     Alert.alert('There is something wrong!', err.message);
   }
