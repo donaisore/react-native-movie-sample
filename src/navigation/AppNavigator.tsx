@@ -9,7 +9,8 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer>
-      {!user ? <AuthNavigator /> : <MainBottomTabNavigator />}
+      <MainBottomTabNavigator />
+      {/* {!user ? <AuthNavigator /> : <MainBottomTabNavigator />} */}
     </NavigationContainer>
   );
 };

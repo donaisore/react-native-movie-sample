@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MainBottomTabParamList } from 'src/types/navigation';
 import HomeStackNavigator from 'src/navigation/HomeStackNavigator';
 import Favorite from 'src/screens/MainBottomTab/Favorite';
-import MyPage from 'src/screens/MainBottomTab/MyPage';
+import MyPageScreen from 'src/screens/MainBottomTab/MyPageScreen';
 
 const MainBottomTab = createBottomTabNavigator<MainBottomTabParamList>();
 
@@ -38,7 +38,7 @@ const MainBottomTabNavigator = () => {
       />
       <MainBottomTab.Screen
         name='MyPage'
-        component={MyPage}
+        component={MyPageScreen}
         options={{
           tabBarIcon: () => <TabBarIcon name='person-outline' />,
         }}
