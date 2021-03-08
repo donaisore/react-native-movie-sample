@@ -6,8 +6,9 @@ import {
   FlatList,
   StyleSheet,
   Image,
+  ListRenderItemInfo,
 } from 'react-native';
-import firebase from 'src/config/firebase';
+import { getVideoSnapShot } from 'src/api/firestore/video';
 /* components */
 import VideoCard from 'src/components/VideoCard';
 
@@ -21,43 +22,36 @@ type Props = {
   route: RouteProp<HomeStackParamList, 'Main'>;
 };
 
-type movieItem = {
+type VideoItem = {
   key: number;
   component: any;
-  ref: any;
+  videoUrl: string;
 };
 
 const HomeScreen = ({ navigation, route }: Props) => {
-  const [movies, setMovies] = useState<movieItem[]>([]);
+  const [videos, setVideos] = useState<VideoItem[]>([]);
 
-  const setMovieList = async () => {
-    const ref = firebase.storage().ref('movies/');
-    const movieList = await ref.listAll();
-    setMovies(
-      movieList.items.map((ref, index) => {
-        return {
-          key: index,
-          component: VideoCard,
-          ref: ref,
-        };
-      })
-    );
+  const setVideoList = async () => {
+    const videoSnapShot = await getVideoSnapShot();
+    const videoList = videoSnapShot.docs.map((doc, index) => {
+      return {
+        key: index,
+        component: VideoCard,
+        videoUrl: doc.data().videoUrl,
+      };
+    });
+    setVideos(videoList);
   };
 
   useEffect(() => {
-    setMovieList();
+    setVideoList();
   }, []);
 
-  const handlePress = (item: movieItem) => async () => {
-    // const firstPage = await ref.list({ maxResults: 10 });
-    // const firstItemRef = firstPage.items[0];
-    // const url = await firstItemRef.getDownloadURL();
-    // setMovies();
-    const url = await item.ref.getDownloadURL();
-    navigation.navigate('VideoDetail', { vidieoUri: url });
+  const handlePress = (item: VideoItem) => async () => {
+    navigation.navigate('VideoDetail', { vidieoUri: item.videoUrl });
   };
 
-  const renderItem = ({ item }: any) => {
+  const renderItem = ({ item }: ListRenderItemInfo<VideoItem>) => {
     return (
       <TouchableOpacity
         style={styles.cardContainer}
@@ -76,8 +70,8 @@ const HomeScreen = ({ navigation, route }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList data={movies} renderItem={renderItem} numColumns={2} />
-      <FAB style={styles.fab} icon='refresh' onPress={setMovieList} />
+      <FlatList data={videos} renderItem={renderItem} numColumns={2} />
+      <FAB style={styles.fab} icon='refresh' onPress={setVideoList} />
     </SafeAreaView>
   );
 };

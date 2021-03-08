@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { FAB } from 'react-native-paper';
 import { SafeAreaView, Text, StyleSheet } from 'react-native';
 
-import firebase from 'src/config/firebase';
-import { db } from 'src/api/firebase';
+import { addVideo } from 'src/api/firestore/video';
+import { getVideoStorageRef } from 'src/api/storage/video';
 import * as ImagePicker from 'expo-image-picker';
 
 const MyPageScreen = () => {
@@ -22,11 +22,11 @@ const MyPageScreen = () => {
       const fileName = uri.split('/').slice(-1)[0];
       const response = await fetch(uri);
       const blob = await response.blob();
-      const storageRef = firebase.storage().ref('movies/' + fileName);
-      await storageRef.put(blob);
-      const videoUrl = await storageRef.getDownloadURL();
+      const videoStorageRef = getVideoStorageRef(fileName);
+      await videoStorageRef.put(blob);
+      const videoUrl = await videoStorageRef.getDownloadURL();
       try {
-        await db.collection('movies').add({ videoUrl: videoUrl });
+        await addVideo({ videoUrl: videoUrl });
       } catch (e) {
         console.log(e);
       }

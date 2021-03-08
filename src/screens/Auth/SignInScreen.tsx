@@ -3,7 +3,7 @@ import { SafeAreaView, Text, StyleSheet } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AuthStackParamList } from 'src/types/navigation';
-import { signIn } from 'src/api/firebase';
+import { signIn } from 'src/api/authentication/firebase';
 import { UserContext } from 'src/contexts/userContext';
 
 type Props = {

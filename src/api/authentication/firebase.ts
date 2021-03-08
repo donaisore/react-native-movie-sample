@@ -1,4 +1,3 @@
-import 'firebase/firestore';
 import { Alert } from 'react-native';
 import { User } from 'src/types/user';
 import firebase from 'src/config/firebase';
@@ -37,5 +36,3 @@ export async function loggingOut() {
     Alert.alert('There is something wrong!', err.message);
   }
 }
-
-export const db = firebase.firestore();
