@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TouchableOpacity,
   SafeAreaView,
@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
+import firebase from 'src/config/firebase';
 /* components */
 import VideoCard from 'src/components/VideoCard';
 
@@ -19,41 +20,46 @@ type Props = {
   route: RouteProp<HomeStackParamList, 'Main'>;
 };
 
-const HomeScreen = ({ navigation, route }: Props) => {
-  const movies = [
-    { key: 'foo', component: VideoCard },
-    { key: 'foo1', component: VideoCard },
-    { key: 'foo2', component: VideoCard },
-    { key: 'foo3', component: VideoCard },
-    { key: 'foo4', component: VideoCard },
-    { key: 'foo5', component: VideoCard },
-    { key: 'foo', component: VideoCard },
-    { key: 'foofoo1', component: VideoCard },
-    { key: 'foofoo2', component: VideoCard },
-    { key: 'foofoo3', component: VideoCard },
-    { key: 'foofoo4', component: VideoCard },
-    { key: 'foofoo5', component: VideoCard },
-    { key: 'foofoo', component: VideoCard },
-    { key: 'foofoofoo1', component: VideoCard },
-    { key: 'foofoofoo2', component: VideoCard },
-    { key: 'foofoofoo3', component: VideoCard },
-    { key: 'foofoofoo4', component: VideoCard },
-    { key: 'ffoooo5', component: VideoCard },
-    { key: 'foofoofoofoo', component: VideoCard },
-    { key: 'foofoofoofoo1', component: VideoCard },
-    { key: 'foofoofoofoo2', component: VideoCard },
-    { key: 'fofoofooo3', component: VideoCard },
-    { key: 'foofoofoofoo4', component: VideoCard },
-    { key: 'ffoofoooo5', component: VideoCard },
-  ];
+type movieItem = {
+  key: number;
+  component: any;
+  ref: any;
+};
 
-  const handlePress = () => {
-    navigation.navigate('VideoDetail');
+const HomeScreen = ({ navigation, route }: Props) => {
+  const [movies, setMovies] = useState<movieItem[]>([]);
+  useEffect(() => {
+    const f = async () => {
+      const ref = firebase.storage().ref('movies/');
+      const movieList = await ref.listAll();
+      setMovies(
+        movieList.items.map((ref, index) => {
+          return {
+            key: index,
+            component: VideoCard,
+            ref: ref,
+          };
+        })
+      );
+    };
+    f();
+  }, []);
+
+  const handlePress = (item: movieItem) => async () => {
+    // const firstPage = await ref.list({ maxResults: 10 });
+    // const firstItemRef = firstPage.items[0];
+    // const url = await firstItemRef.getDownloadURL();
+    // setMovies();
+    const url = await item.ref.getDownloadURL();
+    navigation.navigate('VideoDetail', { vidieoUri: url });
   };
 
   const renderItem = ({ item }: any) => {
     return (
-      <TouchableOpacity style={styles.cardContainer} onPress={handlePress}>
+      <TouchableOpacity
+        style={styles.cardContainer}
+        onPress={handlePress(item)}
+      >
         <Image
           source={{
             uri:

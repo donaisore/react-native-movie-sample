@@ -5,7 +5,7 @@ export type AuthStackParamList = {
 
 export type HomeStackParamList = {
   Main: undefined;
-  VideoDetail: undefined;
+  VideoDetail: { vidieoUri: string };
 };
 
 export type MainBottomTabParamList = {

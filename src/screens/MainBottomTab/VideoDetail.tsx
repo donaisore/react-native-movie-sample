@@ -12,6 +12,7 @@ type Props = {
 };
 
 const VideoDetail = ({ navigation, route }: Props) => {
+  const vidieoUri = route.params.vidieoUri;
   const video = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const handlePlay = () => {
@@ -33,7 +34,7 @@ const VideoDetail = ({ navigation, route }: Props) => {
           ref={video}
           style={styles.video}
           source={{
-            uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+            uri: vidieoUri,
           }}
           resizeMode='contain'
           shouldPlay
