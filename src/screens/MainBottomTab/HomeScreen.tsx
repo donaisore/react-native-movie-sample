@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FAB } from 'react-native-paper';
 import {
   TouchableOpacity,
   SafeAreaView,
@@ -28,21 +29,23 @@ type movieItem = {
 
 const HomeScreen = ({ navigation, route }: Props) => {
   const [movies, setMovies] = useState<movieItem[]>([]);
+
+  const setMovieList = async () => {
+    const ref = firebase.storage().ref('movies/');
+    const movieList = await ref.listAll();
+    setMovies(
+      movieList.items.map((ref, index) => {
+        return {
+          key: index,
+          component: VideoCard,
+          ref: ref,
+        };
+      })
+    );
+  };
+
   useEffect(() => {
-    const f = async () => {
-      const ref = firebase.storage().ref('movies/');
-      const movieList = await ref.listAll();
-      setMovies(
-        movieList.items.map((ref, index) => {
-          return {
-            key: index,
-            component: VideoCard,
-            ref: ref,
-          };
-        })
-      );
-    };
-    f();
+    setMovieList();
   }, []);
 
   const handlePress = (item: movieItem) => async () => {
@@ -72,13 +75,17 @@ const HomeScreen = ({ navigation, route }: Props) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <FlatList data={movies} renderItem={renderItem} numColumns={2} />
+      <FAB style={styles.fab} icon='refresh' onPress={setMovieList} />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   cardContainer: {
     width: '50%',
     height: 300,
@@ -88,6 +95,12 @@ const styles = StyleSheet.create({
   card: {
     width: '98%',
     height: '98%',
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
   },
 });
 
