@@ -3,17 +3,14 @@ import { FAB } from 'react-native-paper';
 import { SafeAreaView, Text, StyleSheet } from 'react-native';
 
 import firebase from 'src/config/firebase';
+import { db } from 'src/api/firebase';
 import * as ImagePicker from 'expo-image-picker';
 
 const MyPageScreen = () => {
-  // const [video, setVideo] = useState<ImagePicker.ImagePickerResult | null>(
-  //   null
-  // );
-
   const openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissionResult.granted === false) {
-      alert('Permission to access camera roll is required!');
+      alert('カメラロールへのアクセス権限が必要です。');
       return;
     }
 
@@ -27,6 +24,12 @@ const MyPageScreen = () => {
       const blob = await response.blob();
       const storageRef = firebase.storage().ref('movies/' + fileName);
       await storageRef.put(blob);
+      const videoUrl = await storageRef.getDownloadURL();
+      try {
+        await db.collection('movies').add({ videoUrl: videoUrl });
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
