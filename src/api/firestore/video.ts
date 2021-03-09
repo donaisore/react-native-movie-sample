@@ -1,4 +1,4 @@
-import { db } from 'src/api/firestore/firebase';
+import { db } from 'src/api/firestore';
 import { Video } from 'src/types/video';
 
 const videoCollectionName = 'videos';

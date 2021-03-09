@@ -1,25 +1,20 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Image } from 'react-native';
+import * as VideoThumbnails from 'expo-video-thumbnails';
 
-const VideoCard = () => {
-  return (
-    <View>
-      <Image
-        source={{
-          uri:
-            'https://frigater.com/wp-content/uploads/2019/09/190924_b_%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB.png',
-        }}
-        style={styles.image}
-      />
-    </View>
-  );
+const VideoCard = ({ videoUrl, style }: any) => {
+  const [thumbnailUrl, setThumbnailUrl] = useState<string>('');
+
+  const generateThumbnail = async () => {
+    const { uri } = await VideoThumbnails.getThumbnailAsync(videoUrl);
+    setThumbnailUrl(uri);
+  };
+
+  useEffect(() => {
+    generateThumbnail();
+  }, []);
+
+  return <Image source={{ uri: thumbnailUrl }} style={style} />;
 };
-
-const styles = StyleSheet.create({
-  image: {
-    width: 150,
-    height: 150,
-  },
-});
 
 export default VideoCard;

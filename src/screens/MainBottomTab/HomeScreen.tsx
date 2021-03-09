@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   FlatList,
   StyleSheet,
-  Image,
   ListRenderItemInfo,
 } from 'react-native';
 import { getVideoSnapShot } from 'src/api/firestore/video';
@@ -24,7 +23,6 @@ type Props = {
 
 type VideoItem = {
   key: number;
-  component: any;
   videoUrl: string;
 };
 
@@ -36,7 +34,6 @@ const HomeScreen = ({ navigation, route }: Props) => {
     const videoList = videoSnapShot.docs.map((doc, index) => {
       return {
         key: index,
-        component: VideoCard,
         videoUrl: doc.data().videoUrl,
       };
     });
@@ -57,13 +54,7 @@ const HomeScreen = ({ navigation, route }: Props) => {
         style={styles.cardContainer}
         onPress={handlePress(item)}
       >
-        <Image
-          source={{
-            uri:
-              'https://frigater.com/wp-content/uploads/2019/09/190924_b_%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB.png',
-          }}
-          style={styles.card}
-        />
+        <VideoCard videoUrl={item.videoUrl} style={styles.card} />
       </TouchableOpacity>
     );
   };

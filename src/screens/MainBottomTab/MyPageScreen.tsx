@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FAB } from 'react-native-paper';
 import { SafeAreaView, Text, StyleSheet } from 'react-native';
 

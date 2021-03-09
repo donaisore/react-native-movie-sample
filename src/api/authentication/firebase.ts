@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { User } from 'src/types/user';
-import firebase from 'src/config/firebase';
+import { auth } from 'src/api/authentication';
 
 type signInProps = {
   email: string;
@@ -11,8 +11,6 @@ type signUpProps = {
   email: string;
   password: string;
 };
-
-const auth = firebase.auth();
 
 export const signIn = async ({ email, password }: signInProps) => {
   const userCredential = await auth.signInWithEmailAndPassword(email, password);
