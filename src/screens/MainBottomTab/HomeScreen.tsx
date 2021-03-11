@@ -6,7 +6,9 @@ import {
   FlatList,
   StyleSheet,
   ListRenderItemInfo,
+  View,
 } from 'react-native';
+import { ActivityIndicator, Colors } from 'react-native-paper';
 import { getVideoSnapShot } from 'src/api/firestore/video';
 /* components */
 import VideoCard from 'src/components/VideoCard';
@@ -59,6 +61,17 @@ const HomeScreen = ({ navigation, route }: Props) => {
     );
   };
 
+  if (videos.length === 0)
+    return (
+      <SafeAreaView style={styles.loadingContainer}>
+        <ActivityIndicator
+          size='large'
+          animating={true}
+          color={Colors.blue800}
+        />
+      </SafeAreaView>
+    );
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList data={videos} renderItem={renderItem} numColumns={2} />
@@ -68,6 +81,10 @@ const HomeScreen = ({ navigation, route }: Props) => {
 };
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
   },
