@@ -14,7 +14,12 @@ const VideoCard = ({ videoUrl, style }: any) => {
     generateThumbnail();
   }, []);
 
-  return <Image source={{ uri: thumbnailUrl }} style={style} />;
+  return (
+    <Image
+      source={thumbnailUrl === '' ? null : { uri: thumbnailUrl }}
+      style={style}
+    />
+  );
 };
 
 export default VideoCard;
