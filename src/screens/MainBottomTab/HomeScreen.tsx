@@ -6,7 +6,6 @@ import {
   FlatList,
   StyleSheet,
   ListRenderItemInfo,
-  View,
 } from 'react-native';
 import { ActivityIndicator, Colors } from 'react-native-paper';
 import { getVideoSnapShot } from 'src/api/firestore/video';
@@ -30,6 +29,7 @@ type VideoItem = {
 
 const HomeScreen = ({ navigation, route }: Props) => {
   const [videos, setVideos] = useState<VideoItem[]>([]);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const setVideoList = async () => {
     const videoSnapShot = await getVideoSnapShot();
@@ -74,7 +74,17 @@ const HomeScreen = ({ navigation, route }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList data={videos} renderItem={renderItem} numColumns={2} />
+      <FlatList
+        data={videos}
+        renderItem={renderItem}
+        numColumns={2}
+        refreshing={refreshing}
+        onRefresh={async () => {
+          setRefreshing(true);
+          await setVideoList();
+          setRefreshing(false);
+        }}
+      />
       <FAB style={styles.fab} icon='refresh' onPress={setVideoList} />
     </SafeAreaView>
   );
