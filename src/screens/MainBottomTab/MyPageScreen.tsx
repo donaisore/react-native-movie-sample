@@ -1,37 +1,50 @@
-import React from 'react';
+/* library */
+import React, { useState } from 'react';
 import { FAB } from 'react-native-paper';
 import { SafeAreaView, Text, StyleSheet } from 'react-native';
-
+import { ActivityIndicator, Colors } from 'react-native-paper';
+/* api */
 import { addVideo } from 'src/api/firestore/video';
 import { getVideoStorageRef } from 'src/api/storage/video';
-import * as ImagePicker from 'expo-image-picker';
+/* utils */
+import { openVideoImagePickerAsync } from 'src/utils/imagePicker';
 
 const MyPageScreen = () => {
-  const openImagePickerAsync = async () => {
-    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (permissionResult.granted === false) {
-      alert('カメラロールへのアクセス権限が必要です。');
-      return;
-    }
+  const [isLoading, setIsLoading] = useState(false);
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-    });
-    if (!pickerResult.cancelled) {
-      const { uri } = pickerResult;
-      const fileName = uri.split('/').slice(-1)[0];
-      const response = await fetch(uri);
+  const openImagePickerAsync = async () => {
+    setIsLoading(true);
+    try {
+      const videoUri = await openVideoImagePickerAsync();
+      if (!videoUri) return;
+
+      const fileName = videoUri.split('/').slice(-1)[0];
+      const response = await fetch(videoUri);
       const blob = await response.blob();
       const videoStorageRef = getVideoStorageRef(fileName);
       await videoStorageRef.put(blob);
+
       const videoUrl = await videoStorageRef.getDownloadURL();
       try {
         await addVideo({ videoUrl: videoUrl });
       } catch (e) {
         console.log(e);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  if (isLoading)
+    return (
+      <SafeAreaView style={styles.loadingContainer}>
+        <ActivityIndicator
+          size='large'
+          animating={true}
+          color={Colors.blue800}
+        />
+      </SafeAreaView>
+    );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -42,6 +55,10 @@ const MyPageScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
   },
