@@ -40,11 +40,12 @@ const HomeScreen = ({ navigation, route }: Props) => {
       };
     });
     setVideos(videoList);
+    setRefreshing(false);
   };
 
-  useEffect(() => {
-    setVideoList();
-  }, []);
+  // useEffect(() => {
+  //   setVideoList();
+  // }, []);
 
   const handlePress = (item: VideoItem) => async () => {
     navigation.navigate('VideoDetail', { vidieoUri: item.videoUrl });
@@ -61,7 +62,7 @@ const HomeScreen = ({ navigation, route }: Props) => {
     );
   };
 
-  if (videos.length === 0)
+  if (refreshing)
     return (
       <SafeAreaView style={styles.loadingContainer}>
         <ActivityIndicator
@@ -82,7 +83,6 @@ const HomeScreen = ({ navigation, route }: Props) => {
         onRefresh={async () => {
           setRefreshing(true);
           await setVideoList();
-          setRefreshing(false);
         }}
       />
       <FAB style={styles.fab} icon='refresh' onPress={setVideoList} />
