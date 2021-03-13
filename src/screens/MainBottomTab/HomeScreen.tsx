@@ -25,6 +25,7 @@ type Props = {
 type VideoItem = {
   key: number;
   videoUrl: string;
+  thumbUrl: string;
 };
 
 const HomeScreen = ({ navigation, route }: Props) => {
@@ -34,9 +35,11 @@ const HomeScreen = ({ navigation, route }: Props) => {
   const setVideoList = async () => {
     const videoSnapShot = await getVideoSnapShot();
     const videoList = videoSnapShot.docs.map((doc, index) => {
+      const videoItem = doc.data() as VideoItem;
       return {
         key: index,
-        videoUrl: doc.data().videoUrl,
+        videoUrl: videoItem.videoUrl,
+        thumbUrl: videoItem.thumbUrl,
       };
     });
     setVideos(videoList);
@@ -57,7 +60,7 @@ const HomeScreen = ({ navigation, route }: Props) => {
         style={styles.cardContainer}
         onPress={handlePress(item)}
       >
-        <VideoCard videoUrl={item.videoUrl} style={styles.card} />
+        <VideoCard thumbUrl={item.thumbUrl} style={styles.card} />
       </TouchableOpacity>
     );
   };

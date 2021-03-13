@@ -10,6 +10,7 @@ export const openVideoImagePickerAsync = async (): Promise<string | null> => {
   let pickerResult = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.Videos,
   });
+
   if (!pickerResult.cancelled) {
     const { uri } = pickerResult;
     return uri;

@@ -5,10 +5,10 @@ import { SafeAreaView, Text, StyleSheet } from 'react-native';
 import { ActivityIndicator, Colors, Snackbar } from 'react-native-paper';
 /* api */
 import { addVideo } from 'src/api/firestore/video';
-import { getVideoStorageRef } from 'src/api/storage/video';
+import { getVideoStorageRef, getThumbsStorageRef } from 'src/api/storage/video';
 /* utils */
 import { openVideoImagePickerAsync } from 'src/utils/imagePicker';
-import { RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE_CONSTRAINED } from 'expo-av/build/Audio';
+import * as VideoThumbnails from 'expo-video-thumbnails';
 
 const MyPageScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,18 +17,33 @@ const MyPageScreen = () => {
   const openImagePickerAsync = async () => {
     setIsLoading(true);
     try {
-      const videoUri = await openVideoImagePickerAsync();
-      if (!videoUri) return;
+      const localVideoUri = await openVideoImagePickerAsync();
+      if (!localVideoUri) return;
 
-      const fileName = videoUri.split('/').slice(-1)[0];
-      const response = await fetch(videoUri);
-      const blob = await response.blob();
-      const videoStorageRef = getVideoStorageRef(fileName);
-      await videoStorageRef.put(blob);
+      const videoFileName = localVideoUri.split('/').slice(-1)[0];
+      const localVideoFile = await fetch(localVideoUri);
+      const videoBlob = await localVideoFile.blob();
+      const videoStorageRef = getVideoStorageRef(videoFileName);
+      await videoStorageRef.put(videoBlob);
+      const firebaseVideoUrl = await videoStorageRef.getDownloadURL();
 
-      const videoUrl = await videoStorageRef.getDownloadURL();
-      await addVideo({ videoUrl: videoUrl });
+      const { uri: localThumbUri } = await VideoThumbnails.getThumbnailAsync(
+        firebaseVideoUrl
+      );
+      const localThumbFile = await fetch(localThumbUri);
+      const thumbFileName = localThumbUri.split('/').slice(-1)[0];
+      const thumbBlob = await localThumbFile.blob();
+      const thumbStorageRef = getThumbsStorageRef(thumbFileName);
+      await thumbStorageRef.put(thumbBlob);
+      const firebaseThumbUrl = await thumbStorageRef.getDownloadURL();
+
+      await addVideo({
+        videoUrl: firebaseVideoUrl,
+        thumbUrl: firebaseThumbUrl,
+      });
       setSnackBarVisible(true);
+    } catch (e) {
+      alert(e);
     } finally {
       setIsLoading(false);
     }

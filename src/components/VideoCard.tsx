@@ -1,27 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Image } from 'react-native';
-import * as VideoThumbnails from 'expo-video-thumbnails';
+import React from 'react';
+import { Image, ImageStyle, StyleProp } from 'react-native';
 
-const VideoCard = ({ videoUrl, style }: any) => {
-  const [thumbnailUrl, setThumbnailUrl] = useState<string>(
-    'https://growthseed.jp/wp-content/uploads/2016/12/peach-1.jpg'
-  );
+type Props = {
+  thumbUrl: string;
+  style: StyleProp<ImageStyle>;
+};
 
-  // const generateThumbnail = async () => {
-  //   const { uri } = await VideoThumbnails.getThumbnailAsync(videoUrl);
-  //   setThumbnailUrl(uri);
-  // };
+const VideoCard = ({ thumbUrl, style }: Props) => {
+  console.log('aaaaaaaaaa');
+  console.log({ thumbUrl });
 
-  // useEffect(() => {
-  //   generateThumbnail();
-  // }, []);
-
-  return (
-    <Image
-      source={thumbnailUrl === '' ? null : { uri: thumbnailUrl }}
-      style={style}
-    />
-  );
+  return <Image source={{ uri: thumbUrl }} style={style} />;
 };
 
 export default VideoCard;
