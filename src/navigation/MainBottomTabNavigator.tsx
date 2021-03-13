@@ -1,16 +1,16 @@
+/* library */
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+/* types */
 import { MainBottomTabParamList } from 'src/types/navigation';
-import HomeStackNavigator from 'src/navigation/HomeStackNavigator';
+/* screens */
+import HomeScreen from 'src/screens/MainBottomTab/HomeScreen';
+/* navigations */
 import Favorite from 'src/screens/MainBottomTab/Favorite';
 import MyPageScreen from 'src/screens/MainBottomTab/MyPageScreen';
 
 const MainBottomTab = createBottomTabNavigator<MainBottomTabParamList>();
-
-// const TabBarIcon = (name: React.ComponentProps<typeof Ionicons>['name']) => {
-//   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
-// };
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof Ionicons>['name'];
@@ -24,7 +24,7 @@ const MainBottomTabNavigator = () => {
     <MainBottomTab.Navigator>
       <MainBottomTab.Screen
         name='Home'
-        component={HomeStackNavigator}
+        component={HomeScreen}
         options={{
           tabBarIcon: () => <TabBarIcon name='home-outline' />,
         }}
