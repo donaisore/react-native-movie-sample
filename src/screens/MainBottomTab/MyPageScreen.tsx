@@ -2,15 +2,17 @@
 import React, { useState } from 'react';
 import { FAB } from 'react-native-paper';
 import { SafeAreaView, Text, StyleSheet } from 'react-native';
-import { ActivityIndicator, Colors } from 'react-native-paper';
+import { ActivityIndicator, Colors, Snackbar } from 'react-native-paper';
 /* api */
 import { addVideo } from 'src/api/firestore/video';
 import { getVideoStorageRef } from 'src/api/storage/video';
 /* utils */
 import { openVideoImagePickerAsync } from 'src/utils/imagePicker';
+import { RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE_CONSTRAINED } from 'expo-av/build/Audio';
 
 const MyPageScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [snackBarVisible, setSnackBarVisible] = useState(false);
 
   const openImagePickerAsync = async () => {
     setIsLoading(true);
@@ -25,11 +27,8 @@ const MyPageScreen = () => {
       await videoStorageRef.put(blob);
 
       const videoUrl = await videoStorageRef.getDownloadURL();
-      try {
-        await addVideo({ videoUrl: videoUrl });
-      } catch (e) {
-        console.log(e);
-      }
+      await addVideo({ videoUrl: videoUrl });
+      setSnackBarVisible(true);
     } finally {
       setIsLoading(false);
     }
@@ -50,6 +49,15 @@ const MyPageScreen = () => {
     <SafeAreaView style={styles.container}>
       <Text>MyPageScreen</Text>
       <FAB style={styles.fab} icon='plus' onPress={openImagePickerAsync} />
+      <Snackbar
+        onDismiss={() => {
+          setSnackBarVisible(false);
+        }}
+        visible={snackBarVisible}
+        duration={1000}
+      >
+        動画の投稿が完了しました！
+      </Snackbar>
     </SafeAreaView>
   );
 };
