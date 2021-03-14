@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { Pressable, SafeAreaView, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Video } from 'expo-av';
 /* types */
 import { StackNavigationProp } from '@react-navigation/stack';

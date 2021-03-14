@@ -1,9 +1,14 @@
+/* library */
 import React, { useState, useContext } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
+/* types */
 import { AuthStackParamList } from 'src/types/navigation';
+/* api */
 import { signIn } from 'src/api/authentication/firebase';
+/* context */
 import { UserContext } from 'src/contexts/userContext';
 
 type Props = {

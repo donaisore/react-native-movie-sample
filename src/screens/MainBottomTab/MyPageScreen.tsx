@@ -1,8 +1,9 @@
 /* library */
 import React, { useState } from 'react';
 import { FAB } from 'react-native-paper';
-import { SafeAreaView, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { ActivityIndicator, Colors, Snackbar } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 /* api */
 import { addVideo } from 'src/api/firestore/video';
 import { getVideoStorageRef, getThumbsStorageRef } from 'src/api/storage/video';

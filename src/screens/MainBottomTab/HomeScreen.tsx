@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+/* library */
+import React, { useState } from 'react';
 import { FAB } from 'react-native-paper';
 import {
   TouchableOpacity,
-  SafeAreaView,
   FlatList,
   StyleSheet,
   ListRenderItemInfo,
 } from 'react-native';
 import { ActivityIndicator, Colors } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+/* api */
 import { getVideoSnapShot } from 'src/api/firestore/video';
 /* components */
 import VideoCard from 'src/components/VideoCard';
