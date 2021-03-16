@@ -7,9 +7,6 @@ type Props = {
 };
 
 const VideoCard = ({ thumbUrl, style }: Props) => {
-  console.log('aaaaaaaaaa');
-  console.log({ thumbUrl });
-
   return <Image source={{ uri: thumbUrl }} style={style} />;
 };
 
