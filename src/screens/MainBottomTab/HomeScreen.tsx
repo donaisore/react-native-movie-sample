@@ -1,6 +1,5 @@
 /* library */
 import React, { useState } from 'react';
-import { FAB } from 'react-native-paper';
 import {
   TouchableOpacity,
   FlatList,
@@ -13,7 +12,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { getVideoSnapShot } from 'src/api/firestore/video';
 /* components */
 import VideoCard from 'src/components/VideoCard';
-
 /* types */
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -47,10 +45,6 @@ const HomeScreen = ({ navigation, route }: Props) => {
     setVideos(videoList);
     setRefreshing(false);
   };
-
-  // useEffect(() => {
-  //   setVideoList();
-  // }, []);
 
   const handlePress = (item: VideoItem) => async () => {
     navigation.navigate('VideoDetail', { vidieoUri: item.videoUrl });
@@ -90,7 +84,6 @@ const HomeScreen = ({ navigation, route }: Props) => {
           await setVideoList();
         }}
       />
-      <FAB style={styles.fab} icon='refresh' onPress={setVideoList} />
     </SafeAreaView>
   );
 };

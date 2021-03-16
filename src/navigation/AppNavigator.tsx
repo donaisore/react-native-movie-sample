@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import AuthNavigator from 'src/navigation/AuthNavigator';
 import { UserContext } from 'src/contexts/userContext';
 import HomeStackNavigator from 'src/navigation/HomeStackNavigator';

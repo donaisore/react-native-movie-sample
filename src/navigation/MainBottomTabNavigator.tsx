@@ -9,6 +9,8 @@ import HomeScreen from 'src/screens/MainBottomTab/HomeScreen';
 /* navigations */
 import Favorite from 'src/screens/MainBottomTab/Favorite';
 import MyPageScreen from 'src/screens/MainBottomTab/MyPageScreen';
+/* constants */
+import { mainColor } from 'src/constants/color';
 
 const MainBottomTab = createBottomTabNavigator<MainBottomTabParamList>();
 
@@ -21,26 +23,36 @@ function TabBarIcon(props: {
 
 const MainBottomTabNavigator = () => {
   return (
-    <MainBottomTab.Navigator>
+    <MainBottomTab.Navigator
+      tabBarOptions={{
+        activeTintColor: mainColor,
+      }}
+    >
       <MainBottomTab.Screen
         name='Home'
         component={HomeScreen}
         options={{
-          tabBarIcon: () => <TabBarIcon name='home-outline' />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name='home-outline' color={color} />
+          ),
         }}
       />
       <MainBottomTab.Screen
         name='Favorite'
         component={Favorite}
         options={{
-          tabBarIcon: () => <TabBarIcon name='heart-outline' />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name='heart-outline' color={color} />
+          ),
         }}
       />
       <MainBottomTab.Screen
         name='MyPage'
         component={MyPageScreen}
         options={{
-          tabBarIcon: () => <TabBarIcon name='person-outline' />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name='person-outline' color={color} />
+          ),
         }}
       />
     </MainBottomTab.Navigator>
