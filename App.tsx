@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { UserContext } from 'src/contexts/userContext';
-import AppNavigator from 'src/navigation/AppNavigator';
+import AppNavigator from 'src/navigations/AppNavigator';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { User } from 'src/types/user';
 import { LogBox } from 'react-native';

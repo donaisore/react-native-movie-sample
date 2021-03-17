@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import AuthNavigator from 'src/navigation/AuthNavigator';
+import AuthNavigator from 'src/navigations/AuthNavigator';
 import { UserContext } from 'src/contexts/userContext';
-import HomeStackNavigator from 'src/navigation/HomeStackNavigator';
+import HomeStackNavigator from 'src/navigations/HomeStackNavigator';
 
 const AppNavigator = () => {
   const { user } = useContext(UserContext);
