@@ -10,6 +10,8 @@ import { getVideoStorageRef, getThumbsStorageRef } from 'src/api/storage/video';
 /* utils */
 import { openVideoImagePickerAsync } from 'src/utils/imagePicker';
 import * as VideoThumbnails from 'expo-video-thumbnails';
+/* constants */
+import { mainColor } from 'src/constants/color';
 
 const MyPageScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -53,18 +55,19 @@ const MyPageScreen = () => {
   if (isLoading)
     return (
       <SafeAreaView style={styles.loadingContainer}>
-        <ActivityIndicator
-          size='large'
-          animating={true}
-          color={Colors.blue800}
-        />
+        <ActivityIndicator size='large' animating={true} />
       </SafeAreaView>
     );
 
   return (
     <SafeAreaView style={styles.container}>
       <Text>MyPageScreen</Text>
-      <FAB style={styles.fab} icon='plus' onPress={openImagePickerAsync} />
+      <FAB
+        style={styles.fab}
+        icon='plus'
+        onPress={openImagePickerAsync}
+        color='white'
+      />
       <Snackbar
         onDismiss={() => {
           setSnackBarVisible(false);
@@ -87,6 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   fab: {
+    backgroundColor: mainColor,
     position: 'absolute',
     margin: 16,
     right: 0,
